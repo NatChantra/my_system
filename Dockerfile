@@ -12,7 +12,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
-RUN npm ci && npm run build
 
 RUN cp .env.example .env && php artisan key:generate --force
 RUN mkdir -p database && touch database/database.sqlite
