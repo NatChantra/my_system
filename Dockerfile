@@ -1,4 +1,4 @@
-# force redeploy v4
+# force redeploy v6
 FROM php:8.2-apache
 WORKDIR /var/www/html
 
@@ -12,7 +12,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
-
+RUN npm ci && npm run build
 RUN cp .env.example .env && php artisan key:generate --force
 RUN mkdir -p database && touch database/database.sqlite
 RUN chown -R www-data:www-data /var/www/html/storage \
