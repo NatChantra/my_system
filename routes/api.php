@@ -10,6 +10,24 @@ use App\Http\Controllers\UsageRecordController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\StockTransactionController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\PositionController;
+use App\Http\Controllers\WorkingHoursController;
+
+Route::get   ('/departments',      [DepartmentController::class, 'index']);
+Route::post  ('/departments',      [DepartmentController::class, 'store']);
+Route::put   ('/departments/{id}', [DepartmentController::class, 'update']);
+Route::delete('/departments/{id}', [DepartmentController::class, 'destroy']);
+
+Route::get   ('/positions',      [PositionController::class, 'index']);
+Route::post  ('/positions',      [PositionController::class, 'store']);
+Route::put   ('/positions/{id}', [PositionController::class, 'update']);
+Route::delete('/positions/{id}', [PositionController::class, 'destroy']);
+
+Route::get   ('/working-hours',      [WorkingHoursController::class, 'index']);
+Route::post  ('/working-hours',      [WorkingHoursController::class, 'store']);
+Route::put   ('/working-hours/{id}', [WorkingHoursController::class, 'update']);
+Route::delete('/working-hours/{id}', [WorkingHoursController::class, 'destroy']);
 
 // ===== Employee =====
 Route::get   ('/employees',      [EmployeeController::class, 'index']);
