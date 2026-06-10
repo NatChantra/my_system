@@ -12,7 +12,7 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 
-RUN npm install && npm run build
+RUN npm install --include=dev && npm run build
 
 RUN cp .env.example .env && php artisan key:generate --force
 
