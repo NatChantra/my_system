@@ -33,6 +33,9 @@ Route::post  ('/leaves',             [LeaveRequestController::class, 'store']);
 Route::patch ('/leaves/{id}/status', [LeaveRequestController::class, 'updateStatus']);
 Route::delete('/leaves/{id}',        [LeaveRequestController::class, 'destroy']);
 
+// ===== Leave Types ===== បន្ថែមថ្មី
+Route::get('/leave-types', [LeaveRequestController::class, 'leaveTypes']);
+
 // ===== Resource (Stock) =====
 Route::get   ('/resources',      [ResourceController::class, 'index']);
 Route::post  ('/resources',      [ResourceController::class, 'store']);
