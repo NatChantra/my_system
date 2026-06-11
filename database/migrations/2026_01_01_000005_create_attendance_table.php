@@ -6,21 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-   public function up(): void
+    public function up(): void
     {
-        if (!Schema::hasTable('attendance')) {
-            Schema::create('attendance', function (Blueprint $table) {
-                $table->id();
-                $table->unsignedBigInteger('user_id');
-                $table->date('date');
-                $table->time('check_in')->nullable();
-                $table->time('check_out')->nullable();
-                $table->string('checkout_status')->nullable();
-                $table->string('status')->default('present');
-                $table->timestamps();
-                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            });
-        }
+        Schema::create('attendance', function (Blueprint $table) {
+            $table->id('att_id');
+            $table->unsignedBigInteger('emp_id');
+            $table->date('date');
+            $table->time('time_in')->nullable();
+            $table->time('time_out')->nullable();
+            $table->string('gps_location')->nullable();
+            $table->string('device_id')->nullable();
+            $table->string('scan_token')->nullable();
+            $table->string('status')->nullable();
+            $table->timestamps();
+            $table->foreign('emp_id')->references('emp_id')->on('employee')->onDelete('cascade');
+        });
     }
 
     public function down(): void
