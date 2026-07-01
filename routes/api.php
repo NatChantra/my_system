@@ -13,6 +13,15 @@ use App\Http\Controllers\StockTransactionController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\WorkingHoursController;
+use App\Http\Controllers\HolidayController;
+use App\Http\Controllers\DashboardController;
+
+
+Route::get('/dashboard', [DashboardController::class, 'index']);
+
+Route::get   ('/holidays',      [HolidayController::class, 'index']);
+Route::post  ('/holidays',      [HolidayController::class, 'store']);
+Route::delete('/holidays/{id}', [HolidayController::class, 'destroy']);
 
 Route::get   ('/departments',      [DepartmentController::class, 'index']);
 Route::post  ('/departments',      [DepartmentController::class, 'store']);
