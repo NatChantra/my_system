@@ -4,9 +4,9 @@ WORKDIR /var/www/html
 
 RUN apt-get update && apt-get install -y \
     libzip-dev zip unzip \
-    default-mysql-client \
+    libpq-dev \
     ca-certificates \
-    && docker-php-ext-install pdo pdo_mysql zip \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip \
     && a2enmod rewrite
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
