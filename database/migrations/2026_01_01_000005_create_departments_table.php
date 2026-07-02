@@ -8,13 +8,11 @@ return new class extends Migration
 {
     public function up(): void
     {
-        if (!Schema::hasTable('departments')) {
-            Schema::create('departments', function (Blueprint $table) {
-                $table->increments('dept_id');
-                $table->string('dept_name', 100)->unique();
-                $table->timestamps();
-            });
-        }
+        Schema::create('departments', function (Blueprint $table) {
+            $table->increments('dept_id');
+            $table->string('dept_name', 100)->unique();
+            $table->timestamps();
+        });
     }
 
     public function down(): void

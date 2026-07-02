@@ -4,11 +4,10 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     public function up(): void
     {
-        if (Schema::hasTable('suppliers')) return;
-
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id('sup_id');
             $table->string('sup_name');

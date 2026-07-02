@@ -6,18 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-   public function up(): void
+    public function up(): void
     {
-        if (!Schema::hasTable('positions')) {
-            Schema::create('positions', function (Blueprint $table) {
-                $table->increments('pos_id');
-                $table->string('pos_name', 255);
-                $table->unsignedInteger('dept_id')->nullable();
-                $table->timestamps();
-            });
-        }
+        // positions table បានបង្កើតហើយក្នុង migration 000007
+        // File នេះ Skip
+    }
+
+    public function down(): void
+    {
+        //
     }
 };
