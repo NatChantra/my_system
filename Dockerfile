@@ -23,5 +23,4 @@ RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available
     && sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
 
 EXPOSE 10000
-
-CMD ["sh", "-c", "php artisan migrate:fresh --force && php artisan config:clear && php artisan cache:clear && apache2-foreground"]
+CMD ["sh", "-c", "mkdir -p database && touch database/database.sqlite && chmod -R 777 database storage bootstrap/cache && php artisan migrate:fresh --force && php artisan config:clear && php artisan cache:clear && apache2-foreground"]
