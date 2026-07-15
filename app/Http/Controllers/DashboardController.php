@@ -28,7 +28,7 @@ class DashboardController extends Controller
         };
 
         // ── Attendance Stats ──────────────────────────────────
-        $attendances  = DB::table('attendances')
+        $attendances  = DB::table('attendance')
             ->whereBetween('date', [$startDate, $endDate])
             ->get();
 
@@ -41,7 +41,7 @@ class DashboardController extends Controller
         $trendData = [];
         for ($i = 0; $i < 7; $i++) {
             $day   = Carbon::now()->startOfWeek()->addDays($i)->toDateString();
-            $count = DB::table('attendances')
+            $count = DB::table('attendance')
                 ->where('date', $day)
                 ->whereIn('status', ['On Time', 'Late'])
                 ->count();
@@ -50,17 +50,17 @@ class DashboardController extends Controller
 
         // Today's exceptions
         $today      = Carbon::today()->toDateString();
-        $exceptions = DB::table('attendances')
-            ->join('employee', 'attendances.emp_id', '=', 'employee.emp_id')
+        $exceptions = DB::table('attendance')
+            ->join('employee', 'attendance.emp_id', '=', 'employee.emp_id')
             ->join('departments', 'employee.dept_id', '=', 'departments.dept_id')
-            ->whereDate('attendances.date', $today)
-            ->whereIn('attendances.status', ['Absent', 'Late'])
+            ->whereDate('attendance.date', $today)
+            ->whereIn('attendance.status', ['Absent', 'Late'])
             ->select(
                 'employee.emp_id',
                 'employee.emp_name',
                 'departments.dept_name as department',
-                'attendances.status',
-                'attendances.time_in'
+                'attendance.status',
+                'attendance.time_in'
             )
             ->get()
             ->map(fn($e) => [
