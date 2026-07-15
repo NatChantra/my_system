@@ -8,15 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('tasks', function (Blueprint \$table) {
-            \$table->id('task_id');
-            \$table->unsignedBigInteger('emp_id')->nullable();
-            \$table->string('task_name');
-            \$table->text('description')->nullable();
-            \$table->date('deadline')->nullable();
-            \$table->string('status')->default('To Do');
-            \$table->timestamps();
-            \$table->foreign('emp_id')->references('emp_id')->on('employee')->onDelete('set null');
+        Schema::create('tasks', function (Blueprint $table) {
+            $table->id('task_id');
+            $table->unsignedBigInteger('emp_id')->nullable();
+            $table->string('task_name');
+            $table->text('description')->nullable();
+            $table->date('deadline')->nullable();
+            $table->string('status')->default('To Do');
+            $table->timestamps();
+            $table->foreign('emp_id')->references('emp_id')->on('employee')->onDelete('set null');
         });
     }
 
@@ -25,8 +25,3 @@ return new class extends Migration
         Schema::dropIfExists('tasks');
     }
 };
-"@
-
-$file = Get-ChildItem C:\my_system\database\migrations\ | Where-Object { $_.Name -like "*create_tasks*" }
-$content | Set-Content $file.FullName
-Write-Host "Done: $($file.Name)"
