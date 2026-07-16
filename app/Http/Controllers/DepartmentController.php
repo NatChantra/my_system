@@ -23,9 +23,11 @@ class DepartmentController extends Controller
     {
         $request->validate(['dept_name' => 'required|string|max:100|unique:departments,dept_name']);
         $id = DB::table('departments')->insertGetId(['dept_name' => $request->dept_name]);
-        $dept = DB::table('departments')->find($id);
-        $dept->emp_count = 0;
-        return response()->json($dept, 201);
+        return response()->json([
+            'dept_id'   => $id,
+            'dept_name' => $request->dept_name,
+            'emp_count' => 0,
+        ], 201);
     }
 
     public function update(Request $request, $id)
