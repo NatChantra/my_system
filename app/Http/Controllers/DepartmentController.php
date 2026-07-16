@@ -9,27 +9,32 @@ class DepartmentController extends Controller
 {
     public function index()
     {
-        $depts = DB::table('departments')
-            ->leftJoin('employee', 'departments.dept_id', '=', 'employee.dept_id')
-            ->select('departments.*', DB::raw('COUNT(employee.emp_id) as emp_count'))
-            ->groupBy('departments.dept_id', 'departments.dept_name')
-            ->orderBy('departments.dept_name')
-            ->get();
-        return response()->json($depts);
+        return response()->json(
+            DB::table('departments')
+                ->leftJoin('employee', 'departments.dept_id', '=', 'employee.dept_id')
+                ->select('departments.*', DB::raw('COUNT(employee.emp_id) as emp_count'))
+                ->groupBy('departments.dept_id', 'departments.dept_name')
+                ->orderBy('departments.dept_name')
+                ->get()
+        );
     }
 
     public function store(Request $request)
     {
         $request->validate(['dept_name' => 'required|string|max:100|unique:departments,dept_name']);
         $id = DB::table('departments')->insertGetId(['dept_name' => $request->dept_name]);
-        return response()->json(DB::table('departments')->find($id), 201);
+        $dept = DB::table('departments')->find($id);
+        $dept->emp_count = 0;
+        return response()->json($dept, 201);
     }
 
     public function update(Request $request, $id)
     {
         $request->validate(['dept_name' => 'required|string|max:100']);
         DB::table('departments')->where('dept_id', $id)->update(['dept_name' => $request->dept_name]);
-        return response()->json(DB::table('departments')->find($id));
+        $dept = DB::table('departments')->find($id);
+        $dept->emp_count = DB::table('employee')->where('dept_id', $id)->count();
+        return response()->json($dept);
     }
 
     public function destroy($id)
