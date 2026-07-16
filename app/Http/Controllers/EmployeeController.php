@@ -11,7 +11,7 @@ class EmployeeController extends Controller
     private function withAvatarUrl($employee)
     {
         if ($employee) {
-            $employee->avatar_url = $employee->avatar ? asset('storage/' . $employee->avatar) : null;
+            $employee->photo_url = $employee->photo ? asset('storage/' . $employee->photo) : null;
         }
         return $employee;
     }
@@ -60,7 +60,7 @@ class EmployeeController extends Controller
 
         $request->validate([
             'emp_name' => 'required|string|max:255',
-            'avatar'   => 'nullable|image|max:4096', // 4MB max
+            'photo'   => 'nullable|image|max:4096', // 4MB max
         ]);
 
         $updateData = [
@@ -71,11 +71,11 @@ class EmployeeController extends Controller
         ];
 
         // Handle avatar upload
-        if ($request->hasFile('avatar')) {
-            if ($employee->avatar && Storage::disk('public')->exists($employee->avatar)) {
-                Storage::disk('public')->delete($employee->avatar);
+        if ($request->hasFile('photo')) {
+            if ($employee->photo && Storage::disk('public')->exists($employee->photo)) {
+                Storage::disk('public')->delete($employee->photo);
             }
-            $updateData['avatar'] = $request->file('avatar')->store('employee_avatars', 'public');
+            $updateData['photo'] = $request->file('photo')->store('employee_avatars', 'public');
         }
 
         DB::table('employee')->where('emp_id', $id)->update($updateData);
@@ -93,8 +93,8 @@ class EmployeeController extends Controller
     public function destroy($id)
     {
         $employee = DB::table('employee')->where('emp_id', $id)->first();
-        if ($employee && $employee->avatar && Storage::disk('public')->exists($employee->avatar)) {
-            Storage::disk('public')->delete($employee->avatar);
+        if ($employee && $employee->photo && Storage::disk('public')->exists($employee->photo)) {
+            Storage::disk('public')->delete($employee->photo);
         }
 
         DB::table('employee')->where('emp_id', $id)->delete();
