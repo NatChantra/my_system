@@ -90,3 +90,4 @@ Route::post('/stock/in',      [StockTransactionController::class, 'stockIn']);
 Route::post('/stock/out',     [StockTransactionController::class, 'stockOut']);
 Route::get ('/stock/history', [StockTransactionController::class, 'index']);
 Route::get ('/stock/report',  [StockTransactionController::class, 'report']);
+Route::get('/ping', fn() => response()->json(['status' => 'ok']));
