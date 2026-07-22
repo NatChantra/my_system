@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\TaskController;
@@ -16,23 +17,34 @@ use App\Http\Controllers\WorkingHoursController;
 use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\DashboardController;
 
+// ===== Auth =====
+Route::post('/login',    [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
 
+// ===== Ping =====
+Route::get('/ping', fn() => response()->json(['status' => 'ok']));
+
+// ===== Dashboard =====
 Route::get('/dashboard', [DashboardController::class, 'index']);
 
+// ===== Holidays =====
 Route::get   ('/holidays',      [HolidayController::class, 'index']);
 Route::post  ('/holidays',      [HolidayController::class, 'store']);
 Route::delete('/holidays/{id}', [HolidayController::class, 'destroy']);
 
+// ===== Departments =====
 Route::get   ('/departments',      [DepartmentController::class, 'index']);
 Route::post  ('/departments',      [DepartmentController::class, 'store']);
 Route::put   ('/departments/{id}', [DepartmentController::class, 'update']);
 Route::delete('/departments/{id}', [DepartmentController::class, 'destroy']);
 
+// ===== Positions =====
 Route::get   ('/positions',      [PositionController::class, 'index']);
 Route::post  ('/positions',      [PositionController::class, 'store']);
 Route::put   ('/positions/{id}', [PositionController::class, 'update']);
 Route::delete('/positions/{id}', [PositionController::class, 'destroy']);
 
+// ===== Working Hours =====
 Route::get   ('/working-hours',      [WorkingHoursController::class, 'index']);
 Route::post  ('/working-hours',      [WorkingHoursController::class, 'store']);
 Route::put   ('/working-hours/{id}', [WorkingHoursController::class, 'update']);
@@ -60,7 +72,7 @@ Route::post  ('/leaves',             [LeaveRequestController::class, 'store']);
 Route::patch ('/leaves/{id}/status', [LeaveRequestController::class, 'updateStatus']);
 Route::delete('/leaves/{id}',        [LeaveRequestController::class, 'destroy']);
 
-// ===== Leave Types ===== បន្ថែមថ្មី
+// ===== Leave Types =====
 Route::get('/leave-types', [LeaveRequestController::class, 'leaveTypes']);
 
 // ===== Resource (Stock) =====
@@ -85,9 +97,8 @@ Route::get   ('/categories',      [CategoryController::class, 'index']);
 Route::post  ('/categories',      [CategoryController::class, 'store']);
 Route::delete('/categories/{id}', [CategoryController::class, 'destroy']);
 
-// ===== Stock In / Out / History / Report =====
+// ===== Stock =====
 Route::post('/stock/in',      [StockTransactionController::class, 'stockIn']);
 Route::post('/stock/out',     [StockTransactionController::class, 'stockOut']);
 Route::get ('/stock/history', [StockTransactionController::class, 'index']);
 Route::get ('/stock/report',  [StockTransactionController::class, 'report']);
-Route::get('/ping', fn() => response()->json(['status' => 'ok']));
