@@ -41,7 +41,7 @@ class ResourceController extends Controller
             'unit'            => $request->unit            ?? 'pcs',
             'created_at'      => now(),
             'updated_at'      => now(),
-        ]);
+        ], 'res_id'); // ✅ fix: specify primary key
 
         // បើមាន stock_qty ពេល add → កត់ transaction ដំបូង
         if (($request->stock_qty ?? 0) > 0) {
