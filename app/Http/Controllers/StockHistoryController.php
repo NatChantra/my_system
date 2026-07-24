@@ -36,7 +36,7 @@ class StockHistoryController extends Controller
             'emp_id'     => $request->emp_id,
             'created_at' => now('Asia/Phnom_Penh'),
             'updated_at' => now('Asia/Phnom_Penh'),
-        ]);
+        ], 'history_id');
 
         return response()->json(
             DB::table('stock_history')->where('history_id', $id)->first(),

@@ -43,16 +43,16 @@ class StockTransactionController extends Controller
                 ->increment('stock_qty', $request->qty);
 
             $txnId = DB::table('stock_transactions')->insertGetId([
-                'res_id'     => $request->pro_id,
-                'sup_id'     => $request->sup_id     ?? null,
-                'type'       => 'in',
-                'qty'        => $request->qty,
-                'unit_price' => $request->unit_price ?? 0,
-                'note'       => $request->note       ?? null,
-                'txn_date'   => now('Asia/Phnom_Penh'),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            'res_id'     => $request->pro_id,
+            'sup_id'     => $request->sup_id     ?? null,
+            'type'       => 'in',
+            'qty'        => $request->qty,
+            'unit_price' => $request->unit_price ?? 0,
+            'note'       => $request->note       ?? null,
+            'txn_date'   => now('Asia/Phnom_Penh'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ], 'txn_id');
 
             DB::commit();
 
