@@ -75,7 +75,7 @@ class AttendanceController extends Controller
             'device_id'    => $request->device_id,
             'scan_token'   => $request->scan_token,
             'status'       => $checkin_status,
-        ]);
+        ], 'att_id');
 
         $record = DB::table('attendance')
             ->join('employee', 'attendance.emp_id', '=', 'employee.emp_id')

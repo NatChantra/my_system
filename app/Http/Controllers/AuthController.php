@@ -32,7 +32,7 @@ class AuthController extends Controller
         }
 
         return response()->json([
-            'user_id'  => $user->id,
+            'user_id'  => $user->id,  // ✅ ត្រឹមត្រូវ
             'username' => $user->username,
             'role'     => $user->role,
             'emp_id'   => $user->emp_id,
