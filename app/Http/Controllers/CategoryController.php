@@ -16,13 +16,13 @@ class CategoryController extends Controller
     {
         $request->validate(['cat_name' => 'required|string|max:255']);
 
-        $id = DB::table('categories')->insertGetId([
-            'cat_name'   => $request->cat_name,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+         $id = DB::table('categories')->insertGetId([
+        'cat_name'   => $request->cat_name,
+        'created_at' => now(),
+        'updated_at' => now(),
+    ], 'cat_id');
 
-        return response()->json(DB::table('categories')->find($id), 201);
+    return response()->json(DB::table('categories')->where('cat_id', $id)->first(), 201);
     }
 
     public function destroy($id)
