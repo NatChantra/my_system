@@ -22,12 +22,12 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $id = DB::table('tasks')->insertGetId([
-            'emp_id'      => $request->emp_id,
-            'task_name'   => $request->task_name,
-            'description' => $request->description ?? null,
-            'deadline'    => $request->deadline    ?? null,
-            'status'      => $request->status      ?? 'To Do',
-        ]);
+        'emp_id'      => $request->emp_id,
+        'task_name'   => $request->task_name,
+        'description' => $request->description ?? null,
+        'deadline'    => $request->deadline    ?? null,
+        'status'      => $request->status      ?? 'To Do',
+    ], 'task_id');
         return response()->json(DB::table('tasks')->where('task_id', $id)->first(), 201);
     }
 
