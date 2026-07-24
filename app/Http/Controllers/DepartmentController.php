@@ -19,15 +19,13 @@ class DepartmentController extends Controller
         );
     }
 
-    public function store(Request $request)
+        public function store(Request $request)
     {
         $request->validate(['dept_name' => 'required|string|max:100|unique:departments,dept_name']);
-        $id = DB::table('departments')->insertGetId(['dept_name' => $request->dept_name]);
-        return response()->json([
-            'dept_id'   => $id,
-            'dept_name' => $request->dept_name,
-            'emp_count' => 0,
-        ], 201);
+        DB::table('departments')->insert(['dept_name' => $request->dept_name]);
+        $dept = DB::table('departments')->where('dept_name', $request->dept_name)->first();
+        $dept->emp_count = 0;
+        return response()->json($dept, 201);
     }
 
     public function update(Request $request, $id)
