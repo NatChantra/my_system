@@ -23,13 +23,14 @@ class WorkingHoursController extends Controller
             'start_time' => 'required', 'end_time' => 'required',
         ]);
         $id = DB::table('working_hours')->insertGetId([
-            'dept_id' => $request->dept_id,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
-            'days' => $request->days ?? 'Mon-Fri',
-            'note' => $request->note ?? null,
-            'created_at' => now(), 'updated_at' => now(),
-        ]);
+        'dept_id' => $request->dept_id,
+        'start_time' => $request->start_time,
+        'end_time' => $request->end_time,
+        'days' => $request->days ?? 'Mon-Fri',
+        'note' => $request->note ?? null,
+        'created_at' => now(),
+        'updated_at' => now(),
+    ], 'wh_id');
         $record = DB::table('working_hours')
             ->leftJoin('departments', 'working_hours.dept_id', '=', 'departments.dept_id')
             ->select('working_hours.*', 'departments.dept_name')
