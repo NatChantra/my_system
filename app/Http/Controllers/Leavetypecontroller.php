@@ -22,9 +22,9 @@ class LeaveTypeController extends Controller
             'type_name'  => $request->type_name,
             'created_at' => now(),
             'updated_at' => now(),
-        ]);
+        ], 'leave_type_id');
 
-        return response()->json(DB::table('leave_types')->find($id), 201);
+        return response()->json(DB::table('leave_types')->where('leave_type_id', $id)->first(), 201);
     }
 
     public function update(Request $request, $id)
@@ -34,7 +34,7 @@ class LeaveTypeController extends Controller
             'updated_at' => now(),
         ]);
 
-        return response()->json(DB::table('leave_types')->find($id));
+        return response()->json(DB::table('leave_types')->where('leave_type_id', $id)->first());
     }
 
     public function destroy($id)

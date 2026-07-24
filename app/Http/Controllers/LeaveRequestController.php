@@ -24,13 +24,13 @@ class LeaveRequestController extends Controller
     public function store(Request $request)
     {
         $id = DB::table('leave_requests')->insertGetId([
-            'emp_id'        => $request->emp_id,
-            'leave_type_id' => $request->leave_type_id ?? 1,
-            'start_date'    => $request->start_date,
-            'end_date'      => $request->end_date,
-            'reason'        => $request->reason ?? null,
-            'status'        => 'Pending',
-        ]);
+        'emp_id'        => $request->emp_id,
+        'leave_type_id' => $request->leave_type_id ?? 1,
+        'start_date'    => $request->start_date,
+        'end_date'      => $request->end_date,
+        'reason'        => $request->reason ?? null,
+        'status'        => 'Pending',
+    ], 'leave_id');
 
         $record = DB::table('leave_requests')
             ->join('employee', 'leave_requests.emp_id', '=', 'employee.emp_id')
