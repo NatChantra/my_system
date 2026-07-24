@@ -19,15 +19,17 @@ class PositionController extends Controller
     public function store(Request $request)
     {
         $request->validate(['pos_name' => 'required|string|max:255']);
-        $id = DB::table('positions')->insertGetId([
-            'pos_name' => $request->pos_name,
-            'dept_id' => $request->dept_id ?? null,
-            'created_at' => now(), 'updated_at' => now(),
+        DB::table('positions')->insert([
+            'pos_name'   => $request->pos_name,
+            'dept_id'    => $request->dept_id ?? null,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
         $record = DB::table('positions')
             ->leftJoin('departments', 'positions.dept_id', '=', 'departments.dept_id')
             ->select('positions.*', 'departments.dept_name')
-            ->where('positions.pos_id', $id)->first();
+            ->orderByDesc('positions.pos_id')
+            ->first();
         return response()->json($record, 201);
     }
 
