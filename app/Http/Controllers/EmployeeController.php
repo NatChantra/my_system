@@ -33,11 +33,11 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $id = DB::table('employee')->insertGetId([
-            'emp_name' => $request->emp_name,
-            'position' => $request->position ?? null,
-            'phone'    => $request->phone    ?? null,
-            'dept_id'  => $request->dept_id  ?? null,
-        ]);
+        'emp_name' => $request->emp_name,
+        'position' => $request->position ?? null,
+        'phone'    => $request->phone    ?? null,
+        'dept_id'  => $request->dept_id  ?? null,
+    ], 'emp_id');
 
         $employee = DB::table('employee')
             ->leftJoin('departments', 'employee.dept_id', '=', 'departments.dept_id')
